@@ -16,7 +16,7 @@ router.post('/signup', async function(req, res, next) {
     catch (error) {
         res.status(403).json({status_code: "403", message: error.message})
     }
-  });
+  }); 
 
 
 
@@ -165,6 +165,21 @@ router.post('/login', async function(req, res, next) {
         }
         catch(error) {
             res.status(403).json({status_code: "403", message: "something went wrong"})
+        }
+    })
+
+    // =============================================================Profile updated=======================================================
+
+    router.put('/updateProfile', async function(req, res, next) {
+        try {
+            let profile= await controller.updateProfile(req)
+            if(profile && profile.status == -1) {
+                throw new Error("Profile can not be updated")
+            }
+            else res.status(200).json({message: "Profile updated successfully", response: profile.response})
+        }
+        catch(error) {
+            res.status(403).json({status_code: "403", message: error.message})
         }
     })
 

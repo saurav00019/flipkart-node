@@ -3,6 +3,7 @@ var jwt = require("jsonwebtoken")
 const md5 = require("md5");
 const { categoryModel } = require("../model/categoryModel");
 const { subCategoryModel } = require("../model/subCategoryModel");
+const { profileModel } = require("../model/profileModel");
 
 exports.signup= async(req, res) =>{
         let {name, password, email, mobile_number, role}= req.body;
@@ -10,7 +11,7 @@ exports.signup= async(req, res) =>{
         let admin= new Admi
 		
 		
-		nModel(req.body);
+		AdminModel(req.body);
        let result = await admin.save();
         if(result) return ({message: "admin signup successfully", response: result,status:0})
         else return ({message: "signup failed", response: {},status:-1})
@@ -129,4 +130,20 @@ exports.deleteSubCategory= async(req, res) =>{
 
 	if (deleteData) return ({message: "subCategory deleted Successfully", response: message, status: 0})
 	else return ({message: "subCategory list not get", response: {}, status: -1})
+}
+
+
+// =============================================================profile Updated================================================================
+
+exports.updateProfile= async(req, res) =>{
+	let updatedData= {
+		name: req.body.name,
+		image: req.body.image,
+		_id: req.body._id
+	}
+	let editProfile= await profileModel.findByIdAndUpdate({_id: updatedData._id}, updatedData, {new: true});
+
+	if (editProfile) return({message: "profile updated successfully", response: editProfile, status: 0})
+	else return({message: "profile not updated", response: {}, status: -1})
+
 }
