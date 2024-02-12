@@ -8,7 +8,7 @@ const { profileModel } = require("../model/profileModel");
 exports.signup= async(req, res) =>{
         let {name, password, email, mobile_number, role}= req.body;
 		req.body.password = md5(password)
-        let admin= new Admi
+        let admin= new AdminModel(req.body)
 		
 		
 		AdminModel(req.body);
@@ -146,4 +146,13 @@ exports.updateProfile= async(req, res) =>{
 	if (editProfile) return({message: "profile updated successfully", response: editProfile, status: 0})
 	else return({message: "profile not updated", response: {}, status: -1})
 
+}
+
+// ========================================================== image upload ==========================================================
+
+exports.uploadImage= async(req, res)=>{
+	let upload= {
+		fileName: req.body.fileName,
+		path: req.body.path
+	}
 }
