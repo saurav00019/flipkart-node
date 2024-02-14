@@ -127,10 +127,10 @@ exports.updateSubCategory= async(req, res) =>{
 }
 
 exports.deleteSubCategory= async(req, res) =>{
-	let deleteData= await subCategoryModel.findByIdAndDelete(req.body._id) 
+	 deleteData= await subCategoryModel.findByIdAndDelete(req.body._id) 
 
-	if (deleteData) return ({message: "subCategory deleted Successfully", response: message, status: 0})
-	else return ({message: "subCategory list not get", response: {}, status: -1})
+	if (deleteData) return ({message: "subCategory deleted Successfully", response: deleteData, status: 0})
+	else return ({message: "subCategory not deleted", response: {}, status: -1})
 }
 
 

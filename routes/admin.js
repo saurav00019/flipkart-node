@@ -165,7 +165,7 @@ router.post('/login', async function(req, res, next) {
             if (subCategory && subCategory.status == -1) {
                 throw new Error("can not delete subCategory")
             }
-            else res.status(200). json({message: "subCategory deleted successfully", response: category.response})
+            else res.status(200). json({message: "subCategory deleted successfully", response: subCategory.response})
         }
         catch(error) {
             res.status(403).json({status_code: "403", message: "something went wrong"})
