@@ -101,11 +101,15 @@ router.post('/login', async function(req, res, next) {
     router.post('/blockUnblockCategory', async function(req, res, next) {
         try{
             let blockData= await controller.blockUnblockCategory(req)
-            if (blockData.is_blocked == 1)
+            if (blockData.response.is_blocked == 0)
             {
-                res.status(200).json({message: "category blocked successfully", response: blockData.response})
+                res.status(200).json({message: "category Unblocked successfully", response: blockData.response})
             }
-            else res.status(200).json({message: "category unblocked successfully", response: blockData.response})
+            else if (blockData.response.is_blocked == 1) {
+             res.status(200).json({message: "category blocked successfully", response: blockData.response})
+            } else {
+                res.status(403).json({err_msg: "is_blocked is wrong"})
+            }
         }
         catch(error){
             res.status(403).json({status_code: "403", message: error.message})

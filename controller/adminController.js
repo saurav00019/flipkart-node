@@ -83,7 +83,8 @@ exports.deleteCategory= async(req, res) =>{
 
 exports.blockUnblockCategory= async(req, res)=>{
 	var {_id, is_blocked}= req.body
-	blockData= await categoryModel.findOneAndUpdate({_id: _id}, {$set: {is_blocked}}, {new: true})
+	let blockData= await categoryModel.findOneAndUpdate({_id: _id}, {$set: {is_blocked}}, {new: true})
+	// console.log(`here is detail of block and unblock data, ${is_blocked}` );
 	if (is_blocked == 1) {
 		return({message: "Category blocked successfully", response: blockData})
 	} else {
