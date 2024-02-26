@@ -33,7 +33,8 @@ router.post('/login', async function(req, res, next) {
         else res.status(200).json({message: "Login successfully", response: checkLogin.response})
     }
     catch(error) {
-        res.status(403).json({status_code: "403", message: error.message})
+        console.log("here is error for  ", error);
+        res.status(403).json({status_code: "403", message: "Credentials don't match"})
     }
 })
 
@@ -177,12 +178,14 @@ router.post('/login', async function(req, res, next) {
     router.put('/updateProfile', async function(req, res, next) {
         try {
             let profile= await controller.updateProfile(req)
+            console.log("here is profile data", profile);
             if(profile && profile.status == -1) {
                 throw new Error("Profile can not be updated")
             }
             else res.status(200).json({message: "Profile updated successfully", response: profile.response})
         }
         catch(error) {
+            console.log("here is problem", error );
             res.status(403).json({status_code: "403", message: error.message})
         }
     })

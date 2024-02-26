@@ -10,15 +10,15 @@ let adminSchema= new mongoose.Schema({
         type: Number,
         default: ""
     },
-    email: {
-        type: String,
-        default: ""
-    },
     role: {
         type: String,
         default: ""
     },
     password: {
+        type: String,
+        default: ""
+    },
+    email: {
         type: String,
         default: ""
     }

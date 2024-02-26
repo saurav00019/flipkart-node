@@ -6,7 +6,19 @@ let profileSchema= new mongoose.Schema({
         type: String,
         default: ""
     },
-    image: {
+    // image: {
+    //     type: String,
+    //     default: ""
+    // },
+    mobile_number: {
+        type: Number,
+        default: ""
+    },
+    role: {
+        type: String,
+        default: ""
+    },
+    password: {
         type: String,
         default: ""
     },

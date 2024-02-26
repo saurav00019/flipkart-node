@@ -137,17 +137,25 @@ exports.deleteSubCategory= async(req, res) =>{
 // =============================================================profile Updated================================================================
 
 exports.updateProfile= async(req, res) =>{
+	
 	let updatedData= {
 		name: req.body.name,
-		image: req.body.image,
+		mobile_number: req.body.mobile_number,
+		role: req.body.role,
+		password: md5(req.body.password),
 		_id: req.body._id
 	}
-	let editProfile= await profileModel.findByIdAndUpdate({_id: updatedData._id}, updatedData, {new: true});
+	console.log(" here is profile id.....", updatedData._id);
+	 editProfile= await AdminModel.findByIdAndUpdate({_id: updatedData._id}, updatedData, {new: true});
+	 console.log(" here is profile id>>>>>>", updatedData._id);
 
 	if (editProfile) return({message: "profile updated successfully", response: editProfile, status: 0})
 	else return({message: "profile not updated", response: {}, status: -1})
 
 }
+
+
+
 
 // ========================================================== image upload ==========================================================
 
