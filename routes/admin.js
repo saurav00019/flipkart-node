@@ -9,7 +9,7 @@ router.post('/signup', async function(req, res, next) {
         let checkStatus = await controller.signup(req)
         if(checkStatus && checkStatus.status == -1)
         {
-            throw new Error('SignUp failed')
+            throw new Error('SignUp failed may be email already exist')
         }
         else res.status(200).json({message: "admin signup successfully", response: checkStatus.response})
     }

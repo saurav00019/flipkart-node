@@ -9,12 +9,15 @@ exports.signup= async(req, res) =>{
         let {name, password, email, mobile_number, role}= req.body;
 		req.body.password = md5(password)
         let admin= new AdminModel(req.body)
-		
+		let check_email= await AdminModel.findOne({email: email})
+		if (!check_email) {
 		
 		AdminModel(req.body);
        let result = await admin.save();
         if(result) return ({message: "admin signup successfully", response: result,status:0})
         else return ({message: "signup failed", response: {},status:-1})
+		}
+		else return ({message: "email already exist", response: {}, status: -1})
 }
 
 
