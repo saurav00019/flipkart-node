@@ -190,6 +190,34 @@ router.post('/login', async function(req, res, next) {
         }
     })
 
+    router.post('/uploadImage', async function(req, res, next) {
+        try {
+            let image= await controller.uploadImage(req)
+            console.log("here is image", image);
+            if (image && image.status == -1) {
+                throw new Error("Image can't be uploaded")
+            }
+            else res.status(200).json({message:"Image uploaded successfully", response: image.response})
+        }
+        catch (error) {
+            console.log("here is error", error);
+            res.status(403).json({status_code: "403", message: error.message})
+        }
+    })
+
+
+    router.post("/filterCategory", async function(req, res, next){
+        try {
+            let filter= await controller.filterCategory(req)
+            if(filter && filter.status == -1) {
+                throw new Error("could't find any category")
+            }
+            else res.status(200).json({message: "we find category", response: filter})
+        } catch (error) {
+            res.status(403).json({status_code: "403", message: error.message})
+        }
+    })
+
     
     
 

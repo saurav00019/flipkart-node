@@ -4,6 +4,9 @@ const md5 = require("md5");
 const { categoryModel } = require("../model/categoryModel");
 const { subCategoryModel } = require("../model/subCategoryModel");
 const { profileModel } = require("../model/profileModel");
+const multer = require("multer");
+const FormData = require('form-data');
+const fs = require('fs');
 
 exports.signup= async(req, res) =>{
         let {name, password, email, mobile_number, role}= req.body;
@@ -162,9 +165,43 @@ exports.updateProfile= async(req, res) =>{
 
 // ========================================================== image upload ==========================================================
 
+
+
 exports.uploadImage= async(req, res)=>{
-	let upload= {
-		fileName: req.body.fileName,
-		path: req.body.path
-	}
+	// const file = req.upload
+	const file= fs.createReadStream("./myfile.jpg")
+	const formdata= new FormData()
+	// formdata.append('image', fs.createReadStream('path/to/profile_picture.jpg'))
+	formdata.append('image', file)
+	// body.set("file", uploadImg)
+	console.log("here is proper image>>>>>>>>>>>>>", formdata);
+
+	if(formdata) return ({message: "Image uploaded successfully", response: formdata, status: 0})
+	else return({message: "image not uploaded", response: {}, status: -1})
 }
+
+
+exports.filterCategory= async(req, res) =>{
+	// let filterData= {
+	// 	category: req.body.category
+	// }
+	// let fetchData= await categoryModel.find({category: filterData.category}, filterData, {new: true})
+	// console.log("here is filter data", fetchData.category);
+
+	// if(fetchData) return({ message: "category fatched successfully", response: fetchData, status: 0})
+	// else return({message: "category could't fatched", response: {}, status: -1})
+
+
+	let filterData= {
+		_id: req.body._id
+	}
+	let fetchData= await categoryModel.findById(filterData._id)
+	if (fetchData) {
+		console.log("here is fond item", fetchData);
+		return({ message: "category fatched successfully", response: fetchData, status: 0})
+	}
+	else return({message: "category could't fatched", response: {}, status: -1})
+
+}
+
+
