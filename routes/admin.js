@@ -206,9 +206,9 @@ router.post('/login', async function(req, res, next) {
     })
 
 
-    router.post("/filterCategory", async function(req, res, next){
+    router.post("/searchCategory", async function(req, res, next){
         try {
-            let filter= await controller.filterCategory(req)
+            let filter= await controller.searchCategory(req)
             if(filter && filter.status == -1) {
                 throw new Error("could't find any category")
             }

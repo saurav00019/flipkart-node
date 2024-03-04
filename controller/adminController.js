@@ -181,7 +181,7 @@ exports.uploadImage= async(req, res)=>{
 }
 
 
-exports.filterCategory= async(req, res) =>{
+exports.searchCategory= async(req, res) =>{
 	// let filterData= {
 	// 	category: req.body.category
 	// }
@@ -192,10 +192,10 @@ exports.filterCategory= async(req, res) =>{
 	// else return({message: "category could't fatched", response: {}, status: -1})
 
 
-	let filterData= {
+	let searchData= {
 		_id: req.body._id
 	}
-	let fetchData= await categoryModel.findById(filterData._id)
+	let fetchData= await categoryModel.findById(searchData._id)
 	if (fetchData) {
 		console.log("here is fond item", fetchData);
 		return({ message: "category fatched successfully", response: fetchData, status: 0})
