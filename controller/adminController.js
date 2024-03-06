@@ -182,26 +182,41 @@ exports.uploadImage= async(req, res)=>{
 
 
 exports.searchCategory= async(req, res) =>{
-	// let filterData= {
-	// 	category: req.body.category
-	// }
-	// let fetchData= await categoryModel.find({category: filterData.category}, filterData, {new: true})
-	// console.log("here is filter data", fetchData.category);
-
-	// if(fetchData) return({ message: "category fatched successfully", response: fetchData, status: 0})
-	// else return({message: "category could't fatched", response: {}, status: -1})
-
-
 	let searchData= {
 		_id: req.body._id
 	}
 	let fetchData= await categoryModel.findById(searchData._id)
 	if (fetchData) {
 		console.log("here is fond item", fetchData);
-		return({ message: "category fatched successfully", response: fetchData, status: 0})
+		 return({ message: "category fatched successfully", response: fetchData, status: 0})
 	}
 	else return({message: "category could't fatched", response: {}, status: -1})
 
+
+}
+
+exports.filterCategory= async(req, res) =>{
+
+	let searchData= {
+		category: req.body.category
+	}
+	let fetchData= await categoryModel.find({})
+	let newData= []
+	
+	newData= fetchData.filter((item) => item.category === searchData.category).map((item) =>({
+		        category: item.category,
+				name: item.name,
+				type: item.type,
+				image: item.image,
+				_id: item._id
+	}))
+	console.log("here is new data", newData);
+	if (newData != 0) {
+		return({ message: "category fatched successfully", response: newData, status: 0})
+	}
+	else {
+	 return({message: "category could't fatched", response: {}, status: -1})
+	}
 }
 
 

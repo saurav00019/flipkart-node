@@ -218,6 +218,17 @@ router.post('/login', async function(req, res, next) {
         }
     })
 
+    router.post("/filterCategory", async function(req, res, next){
+        try {
+            let filter= await controller.filterCategory(req)
+            if(filter && filter.status == -1) {
+                throw new Error("could't find any category")
+            }
+            else res.status(200).json({message: "we find category", response: filter.response})
+        } catch (error) {
+            res.status(403).json({status_code: "403", message: error.message})
+        }
+    })
     
     
 
