@@ -220,3 +220,14 @@ exports.filterCategory= async(req, res) =>{
 }
 
 
+exports.blockUnblockSubCategory= async(req, res, next) =>{
+	var{_id, is_blocked}= req.body
+
+	let blockData= await subCategoryModel.findOneAndUpdate({_id: _id}, {$set: {is_blocked}}, {new: true})
+
+	if (is_blocked == 0) {
+		return ({message: "Sub category unBloked successfully", response: blockData})
+	}
+	else return ({message: "Sub category Blocked succeessfully", response: blockData})
+}
+

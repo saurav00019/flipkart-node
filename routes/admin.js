@@ -212,7 +212,7 @@ router.post('/login', async function(req, res, next) {
             if(filter && filter.status == -1) {
                 throw new Error("could't find any category")
             }
-            else res.status(200).json({message: "we find category", response: filter})
+            else res.status(200).json({message: "we find category", response: filter.response})
         } catch (error) {
             res.status(403).json({status_code: "403", message: error.message})
         }
@@ -226,6 +226,24 @@ router.post('/login', async function(req, res, next) {
             }
             else res.status(200).json({message: "we find category", response: filter.response})
         } catch (error) {
+            res.status(403).json({status_code: "403", message: error.message})
+        }
+    })
+
+    router.put("/blockUnblockSubCategory", async (req, res, next)=> {
+        try {
+            let data= await controller.blockUnblockSubCategory(req)
+            if (data.response.is_blocked == 0){
+                res.status(200).json({message: "Sub category unBlocked", response: data.response})
+            }
+            else if (data.response.is_blocked == 1) {
+                res.status(200).json({message: "Sub category Blocked", response: data.response})
+            } 
+            else {
+                res.status(403).json({err_msg: "is_blocked is wrong"})
+            }
+        }
+        catch(error) {
             res.status(403).json({status_code: "403", message: error.message})
         }
     })

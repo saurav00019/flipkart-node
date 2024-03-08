@@ -14,6 +14,10 @@ let subCategorySchema= new mongoose.Schema({
         type: Number,
         default: new Date().getTime()
     },
+    is_blocked: {
+        type: Number,
+        default: 0
+    },
     categoryId: {
         type: mongoose.Schema.ObjectId,
         ref:'category'
